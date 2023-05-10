@@ -18,12 +18,11 @@ export class CartService {
 
     // check if we already have the item in our cart
     let alreadyExistsInCart: boolean = false;
-    let existingCartItem: CartItem = undefined!;
+    let existingCartItem: CartItem | undefined;
 
     if (this.cartItems.length > 0) {
       // find the item in the cart based on item id
 
-      let existingCartItem: CartItem | undefined;
       existingCartItem = this.cartItems.find( tempCartItem => tempCartItem.id === theCartItem.id );
 
       // check if we found it
@@ -31,8 +30,10 @@ export class CartService {
     }
 
     if (alreadyExistsInCart) {
-      // increment the quantity
+      if(existingCartItem){
+        // increment the quantity
       existingCartItem.quantity++;
+      }
     }
     else {
       // just add the item to the array
